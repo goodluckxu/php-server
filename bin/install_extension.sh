@@ -51,6 +51,7 @@ esac
 if [ `$php -m|grep $extension|wc -l` == 0 ];then
     ext_dir=$PWD'/package/'$php_file_dir'/ext'
     extension_dir=$ext_dir'/'$extension
+    install_extension $extension
     if [ ! -d $extension_dir ];then
         $pecl install $extension
         pecl_error=$?
@@ -64,7 +65,6 @@ if [ `$php -m|grep $extension|wc -l` == 0 ];then
         if [ 'a'$dir_extension != 'a' ];then
             rm -rf $dir_extension
         fi
-        install_extension $extension
         cd $extension_dir
         if [ -f $extension_dir'/config0.m4' ] && [ ! -f $extension_dir'/config.m4' ];then
             cp $extension_dir'/config0.m4' $extension_dir'/config.m4'

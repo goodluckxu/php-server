@@ -81,6 +81,11 @@ function install_extension() {
                 yum -y install librabbitmq-devel
             fi
             ;;
+        imagick)
+            if [ `rpm -qa|grep ImageMagick-devel|wc -l` == 0 ];then
+                yum -y install ImageMagick-devel
+            fi
+            ;;
         *)
             grep_file=$1'-devel'
             if [ `echo $1|grep pdo_|wc -l` != 0 ];then
