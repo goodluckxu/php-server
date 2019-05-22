@@ -54,7 +54,10 @@ case $server_type in
                 mkdir -p '/var/www/html'
             fi
             rm -rf '/var/www/html/index.html'
-            echo -e '<?php\n    phpinfo();' > '/var/www/html/index.php'
+            echo -e '<?php\nphpinfo();' > '/var/www/html/index.php'
+            
+            append_file '/etc/profile' 'export PATH='$path_dir'/bin:$PATH'
+            source '/etc/profile'
         else
             exit $error
         fi
@@ -82,7 +85,10 @@ case $server_type in
             update_file '/usr/local/'$nginx_file_dir'/conf/vhost/default.conf' '# include enable-php.conf;' '    include enable-php.conf;'
             update_file '/usr/local/'$nginx_file_dir'/conf/vhost/default.conf' '# include rewrite.conf;' '    include rewrite.conf;'
             rm -rf '/var/www/html/index.html'
-            echo -e '<?php\n    phpinfo();' > '/var/www/html/index.php'
+            echo -e '<?php\nphpinfo();' > '/var/www/html/index.php'
+            
+            append_file '/etc/profile' 'export PATH='$path_dir'/bin:$PATH'
+            source '/etc/profile'
         else
             exit $error
         fi

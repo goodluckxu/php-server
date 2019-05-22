@@ -30,10 +30,10 @@ fi
 extension=$1
 case $extension in
     mcrypt)
-        libmcrypt_package=`get_config lib libmcrypt_package`
-        libmcrypt_package=`exists_download $libmcrypt_package`
         # 安装libmcrypt
         if [ ! -d '/usr/local/libmcrypt' ];then
+            libmcrypt_package=`get_config lib libmcrypt_package`
+            libmcrypt_package=`exists_download $libmcrypt_package`
             decompression $libmcrypt_package
             libmcrypt_dir=`get_file_dir $libmcrypt_package`
             cd $libmcrypt_dir
