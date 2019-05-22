@@ -19,7 +19,7 @@ php_file_dir=`get_file_dir $php_file_name`
 php='/usr/local/'$php_file_dir'/bin/php'
 phpize='/usr/local/'$php_file_dir'/bin/phpize'
 php_config='/usr/local/'$php_file_dir'/bin/php-config'
-php_ini='/usr/local/'$php_file_dir'/etc/php.ini'
+php_conf_d='/usr/local/'$php_file_dir'/etc/conf.d'
 pecl='/usr/local/'$php_file_dir'/bin/pecl'
 
 if [ 'a'$1 == 'a' ];then
@@ -39,6 +39,7 @@ case $extension in
             cd $libmcrypt_dir
             ./configure --prefix=/usr/local/libmcrypt
             make -j$thread && make install
+            cd $PWD
             if [ $? != 0 ];then
                 echo 'libmcrypt安装失败'
                 exit 1
@@ -46,12 +47,23 @@ case $extension in
         fi
         ;;
 esac
-
-
 if [ `$php -m|grep $extension|wc -l` == 0 ];then
     ext_dir=$PWD'/package/'$php_file_dir'/ext'
     extension_dir=$ext_dir'/'$extension
     install_extension $extension
+    if [ ! -d $extension_dir ];then
+        case $extension in
+            mcrypt)
+                mcrypt_package=`get_config lib mcrypt_package`
+                mcrypt_package=`exists_download $mcrypt_package`
+                mcrypt_dir=`get_file_dir $mcrypt_package`
+                decompression $mcrypt_package
+                cp -R $mcrypt_dir $extension_dir
+            ;;
+            *)
+                ;;
+        esac
+    fi
     if [ ! -d $extension_dir ];then
         $pecl install $extension
         pecl_error=$?
@@ -86,6 +98,9 @@ if [ `$php -m|grep $extension|wc -l` == 0 ];then
             mcrypt)
                 ./configure --with-php-config=$php_config --with-mcrypt=/usr/local/libmcrypt
                 ;;
+            gd)
+                ./configure --with-php-config=$php_config --with-jpeg-dir --with-freetype-dir --with-png-dir
+                ;;
             *)
                 ./configure --with-php-config=$php_config
                 ;;
@@ -96,9 +111,11 @@ if [ `$php -m|grep $extension|wc -l` == 0 ];then
         fi
     fi
     # 配置文件是否配置
-    file_extension_num=`cat $php_ini|grep $extension'.so'|wc -l`
+    if [ ! -d $php_conf_d ];then
+        mkdir -p $php_conf_d
+    fi
     dir_extension_num=`find '/usr/local/'$php_file_dir'/lib/php' -name $extension'.so'|wc -l`
-    if [ $file_extension_num == 0 ] && [ $dir_extension_num != 0 ];then
-        echo 'extension='$extension'.so' >> $php_ini
+    if [ ! -f $php_conf_d'/'$extension'.ini' ] && [ $dir_extension_num != 0 ];then
+        echo 'extension='$extension'.so' >> $php_conf_d'/'$extension'.ini'
     fi
 fi

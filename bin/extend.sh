@@ -40,15 +40,6 @@ function install_php() {
     if [ `rpm -qa|grep libxml2-devel|wc -l` == 0 ];then
         yum -y install libxml2-devel
     fi
-    if [ `rpm -qa|grep libjpeg-turbo-devel|wc -l` == 0 ];then
-        yum -y install libjpeg-turbo-devel
-    fi
-    if [ `rpm -qa|grep libpng-devel|wc -l` == 0 ];then
-        yum -y install libpng-devel
-    fi
-    if [ `rpm -qa|grep freetype-devel|wc -l` == 0 ];then
-        yum -y install freetype-devel
-    fi
 }
 
 # 扩展需要的函数
@@ -84,6 +75,20 @@ function install_extension() {
         imagick)
             if [ `rpm -qa|grep ImageMagick-devel|wc -l` == 0 ];then
                 yum -y install ImageMagick-devel
+            fi
+            ;;
+        gd)
+            if [ `rpm -qa|grep gd-devel|wc -l` == 0 ];then
+                yum -y install gd-devel
+            fi
+            if [ `rpm -qa|grep libjpeg-turbo-devel|wc -l` == 0 ];then
+                yum -y install libjpeg-turbo-devel
+            fi
+            if [ `rpm -qa|grep libpng-devel|wc -l` == 0 ];then
+                yum -y install libpng-devel
+            fi
+            if [ `rpm -qa|grep freetype-devel|wc -l` == 0 ];then
+                yum -y install freetype-devel
             fi
             ;;
         *)

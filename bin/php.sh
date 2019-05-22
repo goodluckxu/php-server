@@ -13,7 +13,6 @@ install_php
 # 获取配置
 thread=`get_config core thread`
 package=`get_config php package`
-libmcrypt_package=`get_config lib libmcrypt_package`
 server_type=`get_config server type`
 apache_package=`get_config server apache_package`
 nginx_package=`get_config server nginx_package`
@@ -29,20 +28,6 @@ fi
 
 # 下载地址
 package=`exists_download $package`
-libmcrypt_package=`exists_download $libmcrypt_package`
-
-# 安装libmcrypt
-if [ ! -d '/usr/local/libmcrypt' ];then
-    decompression $libmcrypt_package
-    libmcrypt_dir=`get_file_dir $libmcrypt_package`
-    cd $libmcrypt_dir
-    ./configure --prefix=/usr/local/libmcrypt
-    make -j$thread && make install
-    if [ $? != 0 ];then
-        echo 'libmcrypt安装失败'
-        exit 1
-    fi
-fi
 
 
 # 安装php
@@ -55,7 +40,7 @@ case $server_type in
         apache_file_name=`get_path_name $apache_package`
         apache_file_dir=`get_file_dir $apache_file_name`
         apxs_path='/usr/local/'$apache_file_dir'/bin/apxs'
-        ./configure --prefix=$path_dir --with-apxs2=$apxs_path --with-config-file-path=$path_dir/etc --enable-soap --with-jpeg-dir --with-freetype-dir --with-png-dir
+        ./configure --prefix=$path_dir --with-apxs2=$apxs_path --with-config-file-path=$path_dir/etc --with-config-file-scan-dir=$path_dir/etc/conf.d --enable-soap --with-mhash
         make -j$thread && make install
         error=$?
         if [ $error == 0 ];then
@@ -77,7 +62,7 @@ case $server_type in
     nginx)
         nginx_file_name=`get_path_name $nginx_package`
         nginx_file_dir=`get_file_dir $nginx_file_name`
-        ./configure --prefix=$path_dir --with-config-file-path=$path_dir/etc --enable-fastcgi --enable-fpm --with-fpm-user=www --with-fpm-group=www --enable-soap --enable-opcache=no --with-jpeg-dir --with-freetype-dir --with-png-dir
+        ./configure --prefix=$path_dir --with-config-file-path=$path_dir/etc --with-config-file-scan-dir=$path_dir/etc/conf.d --enable-fastcgi --enable-fpm --with-fpm-user=www --with-fpm-group=www --enable-soap --enable-opcache=no --with-mhash
         make -j$thread && make install
         error=$?
         if [ $error == 0 ];then
