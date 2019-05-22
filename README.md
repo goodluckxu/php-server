@@ -1,4 +1,5 @@
 ## linux上的lanmp环境的安装
+### 软件开发的配置说明：
 ~~~
     [server]
     type=nginx
@@ -19,21 +20,37 @@
     [core]
     thread=4
 ~~~
-### [server]
+#### [server]
 type配置[apache|nginx]
+
 nginx_package配置nginx的下载地址
+
 apache_package配置apache的下载地址
-### [db]
+
+#### [db]
 type配置[mysql]
+
 pakcage配置mysql的下载地址
-### [php]
+
+#### [php]
 pakcage配置php的下载地址
+
 php_extension配置php支持的扩展，某些扩展无法安装可能没安装openssl扩展
-### [lib]
+
+#### [lib]
 apr_package配置apr的下载地址(apache安装使用)
+
 apr_util_package配置apr-util的下载地址(apache安装使用)
+
 pcre_package配置pcre的下载地址(apache安装使用)
+
 libmcrypt_package配置libmcrypt的下载地址(mcrypt扩展使用)
+
 mcrypt_package配置mcrypt的下载地址(mcrypt扩展使用)
-### [core]
+
+#### [core]
 thread配置机器线程数(用于编译提速)
+
+
+### 配置完毕运行
+sh install.sh
