@@ -1,4 +1,4 @@
-## linux上的lanmp环境的安装
+## linux上的lanmp环境的安装(目前只支持centos)
 ### 软件开发的配置说明：
 ~~~
     [server]
