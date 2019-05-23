@@ -30,7 +30,7 @@ apache_package配置apache的下载地址
 #### [db]
 type配置[mysql]
 
-pakcage配置mysql的下载地址
+pakcage配置mysql的下载地址(目前只支持mysql5.5)
 
 #### [php]
 pakcage配置php的下载地址
