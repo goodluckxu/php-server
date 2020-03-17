@@ -1,5 +1,17 @@
 #!/bin/sh
 
+function install_tools() {
+	if [ `rpm -qa|grep wget|wc -l` == 0 ];then
+        yum -y install wget
+    fi
+    if [ `rpm -qa|grep bzip2|wc -l` == 0 ];then
+        yum -y install bzip2
+    fi
+    if [ `rpm -qa|grep unzip|wc -l` == 0 ];then
+        yum -y install unzip
+    fi
+}
+
 function install_gcc() {
     if [ `rpm -qa|grep gcc|wc -l` == 0 ];then
         yum -y install gcc
