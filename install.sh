@@ -10,6 +10,8 @@ source $BIN_PATH'/extend.sh'
 
 install_gcc
 
+install_tools
+
 # 获取配置
 server_type=`get_config server type`
 db_type=`get_config db type`
