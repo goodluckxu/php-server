@@ -103,6 +103,11 @@ function install_extension() {
                 yum -y install freetype-devel
             fi
             ;;
+        bz2)
+            if [ `rpm -qa|grep bzip2-devel|wc -l` == 0 ];then
+                yum -y install bzip2-devel
+            fi
+            ;;
         *)
             grep_file=$1'-devel'
             if [ `echo $1|grep pdo_|wc -l` != 0 ];then
