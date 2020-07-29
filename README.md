@@ -1,6 +1,8 @@
 ## linux上的lanmp环境的安装(目前只支持centos)
 ~~~
-*注: centos6.*支持php7.1及以下，centos7.*以上支持全部php
+*注: 
+1. centos6.*支持php7.1及以下，centos7.*以上支持全部php
+2. 配置的下载地址的地方可将安装包配置到当前目录的package目录下面，配置可只配置文件名。如: nginx_package=nginx-1.15.12.tar.bz2，将nginx-1.15.12.tar.bz2下载到package目录下面
 ~~~
 ### 软件开发的配置说明：
 ~~~
