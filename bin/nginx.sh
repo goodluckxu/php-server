@@ -32,7 +32,7 @@ decompression $package
 file_dir=`get_file_dir $package`
 cd $file_dir
 
-./configure --prefix=$path_dir --with-openssl=/usr/include/openssl --with-pcre --with-http_stub_status_module
+./configure --prefix=$path_dir --with-openssl=/usr/include/openssl --with-pcre --with-http_stub_status_module --with-stream
 # 编译ssl证书版暂不支持
 # ./configure --prefix=$path_dir --with-openssl=/usr/include/openssl --with-pcre --with-http_stub_status_module --with-http_ssl_module
 
