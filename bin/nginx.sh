@@ -50,6 +50,7 @@ if [ $error == 0 ];then
     \cp $FILES_PATH'/nginx.conf' $path_dir'/conf/nginx.conf'
     \cp $FILES_PATH'/enable-php.conf' $path_dir'/conf/enable-php.conf'
     \cp $FILES_PATH'/rewrite.conf' $path_dir'/conf/rewrite.conf'
+    \cp $FILES_PATH'/pathinfo.conf' $path_dir'/conf/pathinfo.conf'
     \cp $FILES_PATH'/cross-domain.conf' $path_dir'/conf/cross-domain.conf'
     \cp $FILES_PATH'/default.conf' $path_dir'/conf/vhost/default.conf'
     update_file $path_dir'/conf/nginx.conf' 'pid        /usr/local/nginx/logs/nginx.pid;' 'pid        '$path_dir'/logs/nginx.pid;'
