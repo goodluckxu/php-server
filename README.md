@@ -6,7 +6,7 @@
    如: nginx_package=nginx-1.15.12.tar.bz2，将nginx-1.15.12.tar.bz2下载到package目录下面
 ~~~
 ### 软件开发的配置说明：
-~~~
+~~~ini
     [server]
     type=nginx
     nginx_package=http://nginx.org/download/nginx-1.15.12.tar.gz
